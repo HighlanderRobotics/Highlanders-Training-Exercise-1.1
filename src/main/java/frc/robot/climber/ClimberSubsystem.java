@@ -6,7 +6,6 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import frc.robot.pivot.PivotIO;
 import frc.robot.roller.RollerIO;
 import frc.robot.rollerpivot.RollerPivotSubsystem;
-import org.littletonrobotics.junction.AutoLogOutput;
 import org.littletonrobotics.junction.Logger;
 
 public class ClimberSubsystem extends RollerPivotSubsystem {
@@ -48,7 +47,6 @@ public class ClimberSubsystem extends RollerPivotSubsystem {
     super(rollerIO, pivotIO, name);
   }
 
-  @AutoLogOutput(key = "Climber/State")
   private ClimberState state = ClimberState.IDLE;
 
   public void setState(ClimberState state) {

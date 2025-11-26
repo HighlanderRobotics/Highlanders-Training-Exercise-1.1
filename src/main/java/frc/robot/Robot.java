@@ -69,7 +69,6 @@ import org.ironmaple.simulation.SimulatedArena;
 import org.ironmaple.simulation.drivesims.COTS;
 import org.ironmaple.simulation.drivesims.SwerveDriveSimulation;
 import org.ironmaple.simulation.drivesims.configs.DriveTrainSimulationConfig;
-import org.littletonrobotics.junction.AutoLogOutput;
 import org.littletonrobotics.junction.LogFileUtil;
 import org.littletonrobotics.junction.LoggedRobot;
 import org.littletonrobotics.junction.Logger;
@@ -139,11 +138,11 @@ public class Robot extends LoggedRobot {
     RIGHT
   }
 
-  @AutoLogOutput private static CoralScoreTarget coralScoreTarget = CoralScoreTarget.L4;
-  @AutoLogOutput private static CoralIntakeTarget coralIntakeTarget = CoralIntakeTarget.GROUND;
+  private static CoralScoreTarget coralScoreTarget = CoralScoreTarget.L4;
+  private static CoralIntakeTarget coralIntakeTarget = CoralIntakeTarget.GROUND;
   //   @AutoLogOutput private static AlgaeIntakeTarget algaeIntakeTarget = AlgaeIntakeTarget.STACK;
   //   @AutoLogOutput private static AlgaeScoreTarget algaeScoreTarget = AlgaeScoreTarget.BARGE;
-  @AutoLogOutput private static ScoringSide scoringSide = ScoringSide.RIGHT;
+  private static ScoringSide scoringSide = ScoringSide.RIGHT;
 
   private Alert manualArmRezeroAlert;
   private Alert driverJoystickDisconnectedAlert;
@@ -329,13 +328,10 @@ public class Robot extends LoggedRobot {
   private final CommandXboxControllerSubsystem driver = new CommandXboxControllerSubsystem(0);
   private final CommandXboxControllerSubsystem operator = new CommandXboxControllerSubsystem(1);
 
-  @AutoLogOutput(key = "Superstructure/Autoaim Request")
   private Trigger autoAimReq = driver.rightBumper().or(driver.leftBumper());
 
-  @AutoLogOutput(key = "Robot/Pre Zeroing Request")
   private Trigger preZeroingReq = driver.a();
 
-  @AutoLogOutput(key = "Robot/Zeroing Request")
   private Trigger zeroingReq = driver.b();
 
   private final Superstructure superstructure =
@@ -343,7 +339,7 @@ public class Robot extends LoggedRobot {
 
   private final Autos autos;
   private Optional<Alliance> lastAlliance = Optional.empty();
-  @AutoLogOutput boolean haveAutosGenerated = false;
+  boolean haveAutosGenerated = false;
   private final LoggedDashboardChooser<Command> autoChooser = new LoggedDashboardChooser<>("Autos");
 
   // Mechanisms

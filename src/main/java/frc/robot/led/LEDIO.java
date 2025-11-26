@@ -5,10 +5,9 @@
 package frc.robot.led;
 
 import edu.wpi.first.wpilibj.util.Color;
-import org.littletonrobotics.junction.AutoLog;
 
 public interface LEDIO {
-  @AutoLog
+
   public static class LEDIOInputs {
     // No sensors so no inputs
   }

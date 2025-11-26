@@ -6,13 +6,12 @@ package frc.robot.camera;
 
 import frc.robot.camera.Camera.CameraConstants;
 import java.util.Optional;
-import org.littletonrobotics.junction.AutoLog;
 import org.photonvision.EstimatedRobotPose;
 import org.photonvision.targeting.PhotonPipelineResult;
 
 /** Add your docs here. */
 public interface CameraIO {
-  @AutoLog
+
   public static class CameraIOInputs {
     public PhotonPipelineResult result = new PhotonPipelineResult();
     public boolean stale = true;

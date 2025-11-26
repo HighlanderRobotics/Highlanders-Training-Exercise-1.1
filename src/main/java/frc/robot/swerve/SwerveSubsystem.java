@@ -31,7 +31,7 @@ import frc.robot.camera.CameraIOSim;
 import frc.robot.swerve.constants.OffseasonBotSwerveConstants;
 import frc.robot.swerve.constants.SwerveConstants;
 import frc.robot.swerve.gyro.GyroIO;
-import frc.robot.swerve.gyro.GyroIOInputsAutoLogged;
+import frc.robot.swerve.gyro.GyroIO.GyroIOInputs;
 import frc.robot.swerve.gyro.GyroIOReal;
 import frc.robot.swerve.gyro.GyroIOSim;
 import frc.robot.swerve.module.Module;
@@ -55,7 +55,6 @@ import java.util.function.Consumer;
 import java.util.function.DoubleSupplier;
 import java.util.function.Supplier;
 import org.ironmaple.simulation.drivesims.SwerveDriveSimulation;
-import org.littletonrobotics.junction.AutoLogOutput;
 import org.littletonrobotics.junction.Logger;
 
 public class SwerveSubsystem extends SubsystemBase {
@@ -63,7 +62,7 @@ public class SwerveSubsystem extends SubsystemBase {
 
   private final Module[] modules; // Front Left, Front Right, Back Left, Back Right
   private final GyroIO gyroIO;
-  private final GyroIOInputsAutoLogged gyroInputs = new GyroIOInputsAutoLogged();
+  private final GyroIOInputs gyroInputs = new GyroIOInputs();
   private final Camera[] cameras;
   private final Pose3d[] cameraPoses;
   private final OdometryThreadIO odometryThread;
@@ -198,7 +197,7 @@ public class SwerveSubsystem extends SubsystemBase {
           Tracer.trace(
               "Update odo thread inputs",
               () -> odometryThread.updateInputs(odometryThreadInputs, lastOdometryUpdateTimestamp));
-          Logger.processInputs("AsyncOdo", odometryThreadInputs);
+
           if (!odometryThreadInputs.sampledStates.isEmpty()) {
             lastOdometryUpdateTimestamp =
                 odometryThreadInputs
@@ -208,7 +207,6 @@ public class SwerveSubsystem extends SubsystemBase {
           }
 
           Tracer.trace("Update gyro inputs", () -> gyroIO.updateInputs(gyroInputs));
-          Logger.processInputs("Swerve/Gyro", gyroInputs);
 
           for (Module module : modules) {
             Tracer.trace("Update module inputs for " + module.getPrefix(), module::periodic);
@@ -710,7 +708,6 @@ public class SwerveSubsystem extends SubsystemBase {
                     gyroInputs.yaw.getDegrees())));
   }
 
-  @AutoLogOutput(key = "Odometry/Robot")
   public Pose2d getPose() {
     return estimator.getEstimatedPosition();
   }
@@ -736,13 +733,11 @@ public class SwerveSubsystem extends SubsystemBase {
     resetPose(new Pose2d(getPose().getTranslation(), newYaw));
   }
 
-  @AutoLogOutput(key = "Odometry/Velocity Robot Relative")
   public ChassisSpeeds getVelocityRobotRelative() {
     ChassisSpeeds speeds = kinematics.toChassisSpeeds(getModuleStates());
     return speeds;
   }
 
-  @AutoLogOutput(key = "Odometry/Velocity Field Relative")
   public ChassisSpeeds getVelocityFieldRelative() {
     return ChassisSpeeds.fromRobotRelativeSpeeds(getVelocityRobotRelative(), getRotation());
   }
@@ -757,7 +752,6 @@ public class SwerveSubsystem extends SubsystemBase {
   }
 
   /** Returns the module states (turn angles and drive velocities) for all of the modules. */
-  @AutoLogOutput(key = "SwerveStates/Measured")
   private SwerveModuleState[] getModuleStates() {
     SwerveModuleState[] states =
         Arrays.stream(modules).map(Module::getState).toArray(SwerveModuleState[]::new);

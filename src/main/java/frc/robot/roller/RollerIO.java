@@ -1,10 +1,7 @@
 package frc.robot.roller;
 
-import org.littletonrobotics.junction.AutoLog;
-
 public interface RollerIO {
 
-  @AutoLog
   public class RollerIOInputs {
     public double velocityRotsPerSec = 0.0;
     public double supplyCurrentAmps = 0.0;

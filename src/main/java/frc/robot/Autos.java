@@ -26,7 +26,6 @@ import frc.robot.utils.FieldUtils;
 import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
-import org.littletonrobotics.junction.AutoLogOutput;
 import org.littletonrobotics.junction.Logger;
 
 /** Add your docs here. */
@@ -45,19 +44,16 @@ public class Autos {
 
   // private static boolean autoIntakeAlgae;
 
-  @AutoLogOutput(key = "Superstructure/Auto Pre Score Request")
   public static Trigger autoPreScoreReq =
       new Trigger(() -> autoPreScore).and(DriverStation::isAutonomous);
 
-  @AutoLogOutput(key = "Superstructure/Auto Score Request")
   public static Trigger autoScoreReq =
       new Trigger(() -> autoScore).and(DriverStation::isAutonomous);
 
-  @AutoLogOutput(key = "Superstructure/Auto Coral Intake Request")
   public static Trigger autoIntakeCoralReq =
       new Trigger(() -> autoIntakeCoral).and(DriverStation::isAutonomous);
 
-  // @AutoLogOutput(key = "Superstructure/Auto Algae Intake Request")
+  //
   // public static Trigger autoIntakeAlgaeReq =
   //     new Trigger(() -> autoIntakeAlgae).and(DriverStation::isAutonomous);
 

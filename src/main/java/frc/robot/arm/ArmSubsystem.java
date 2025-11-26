@@ -10,15 +10,13 @@ import frc.robot.Robot;
 import frc.robot.Superstructure;
 import frc.robot.Superstructure.SuperState;
 import frc.robot.cancoder.CANcoderIO;
-import frc.robot.cancoder.CANcoderIOInputsAutoLogged;
+import frc.robot.cancoder.CANcoderIO.CANcoderIOInputs;
 import frc.robot.pivot.PivotIO;
 import frc.robot.roller.RollerIO;
 import frc.robot.rollerpivot.RollerPivotSubsystem;
 import frc.robot.utils.LoggedTunableNumber;
 import java.util.function.DoubleSupplier;
 import java.util.function.Supplier;
-import org.littletonrobotics.junction.AutoLogOutput;
-import org.littletonrobotics.junction.Logger;
 
 public class ArmSubsystem extends RollerPivotSubsystem {
   public static final double PIVOT_RATIO = 79.17;
@@ -57,7 +55,7 @@ public class ArmSubsystem extends RollerPivotSubsystem {
   public static final double CANCODER_DISCONTINUITY_POINT = 0.5;
 
   private final CANcoderIO cancoderIO;
-  private final CANcoderIOInputsAutoLogged cancoderInputs = new CANcoderIOInputsAutoLogged();
+  private final CANcoderIOInputs cancoderInputs = new CANcoderIOInputs();
 
   // public boolean hasAlgae = false;
   public boolean hasCoral = false;
@@ -152,7 +150,6 @@ public class ArmSubsystem extends RollerPivotSubsystem {
     ;
   }
 
-  @AutoLogOutput(key = "Arm/State")
   private ArmState state = ArmState.IDLE;
 
   public void setState(ArmState state) {
@@ -167,7 +164,6 @@ public class ArmSubsystem extends RollerPivotSubsystem {
   public void periodic() {
     super.periodic();
     cancoderIO.updateInputs(cancoderInputs);
-    Logger.processInputs("Arm/CANcoder", cancoderInputs);
 
     pivotCurrentFilterValue = pivotCurrentFilter.calculate(pivotInputs.statorCurrentAmps);
   }
@@ -193,7 +189,7 @@ public class ArmSubsystem extends RollerPivotSubsystem {
   }
 
   // can it distinguish between coral and algae?
-  @AutoLogOutput(key = "Arm/Has Game Piece")
+
   public boolean hasGamePiece() {
     // return (Math.abs(currentFilterValue) > CORAL_CURRENT_THRESHOLD ||
     // Math.abs(currentFilterValue) > ALGAE_CURRENT_THRESHOLD);

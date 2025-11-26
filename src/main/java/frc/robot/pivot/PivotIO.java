@@ -1,10 +1,9 @@
 package frc.robot.pivot;
 
 import edu.wpi.first.math.geometry.Rotation2d;
-import org.littletonrobotics.junction.AutoLog;
 
 public interface PivotIO {
-  @AutoLog
+
   public static class PivotIOInputs {
     public double angularVelocityRotsPerSec = 0.0;
     public Rotation2d position = new Rotation2d();

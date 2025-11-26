@@ -1,10 +1,7 @@
 package frc.robot.elevator;
 
-import org.littletonrobotics.junction.AutoLog;
-
 public interface ElevatorIO {
 
-  @AutoLog
   public static class ElevatorIOInputs {
     public double leaderPositionMeters = 0.0;
     public double leaderVelocityMetersPerSec = 0.0;

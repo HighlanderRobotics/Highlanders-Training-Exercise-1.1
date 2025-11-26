@@ -53,7 +53,7 @@ public class Camera {
   public static final double distanceFactor = 3.0;
 
   private final CameraIO io;
-  private final CameraIOInputsAutoLogged inputs = new CameraIOInputsAutoLogged();
+  private final CameraIO.CameraIOInputs inputs = new CameraIO.CameraIOInputs();
   private final PhotonPoseEstimator estimator =
       new PhotonPoseEstimator(
           SwerveSubsystem.SWERVE_CONSTANTS.getFieldTagLayout(),
@@ -84,9 +84,7 @@ public class Camera {
     io.updateInputs(inputs);
   }
 
-  public void processApriltagInputs() {
-    Logger.processInputs("Apriltag Vision/" + io.getName(), inputs);
-  }
+  public void processApriltagInputs() {}
 
   public Optional<EstimatedRobotPose> update(PhotonPipelineResult result) {
     // Skip if we have no targets (could/should switch to 1?)

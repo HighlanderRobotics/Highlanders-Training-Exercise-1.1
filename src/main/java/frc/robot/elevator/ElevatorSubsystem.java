@@ -15,7 +15,6 @@ import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Mechanism;
 import frc.robot.utils.LoggedTunableNumber;
 import java.util.function.DoubleSupplier;
 import java.util.function.Function;
-import org.littletonrobotics.junction.AutoLogOutput;
 import org.littletonrobotics.junction.Logger;
 
 public class ElevatorSubsystem extends SubsystemBase {
@@ -74,17 +73,14 @@ public class ElevatorSubsystem extends SubsystemBase {
   }
 
   private ElevatorIO io;
-  private ElevatorIOInputsAutoLogged inputs = new ElevatorIOInputsAutoLogged();
+  private ElevatorIO.ElevatorIOInputs inputs = new ElevatorIO.ElevatorIOInputs();
 
   private LinearFilter currentFilter = LinearFilter.movingAverage(5);
 
-  @AutoLogOutput(key = "Elevator/Current Filter Value")
   private double currentFilterValue = 0.0;
 
-  @AutoLogOutput(key = "Elevator/State")
   private ElevatorState state = ElevatorState.IDLE;
 
-  @AutoLogOutput(key = "Elevator/Setpoint")
   private double setpoint = 0.0;
 
   private final SysIdRoutine voltageSysid;
@@ -114,7 +110,6 @@ public class ElevatorSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     io.updateInputs(inputs);
-    Logger.processInputs("Elevator", inputs);
 
     currentFilterValue = currentFilter.calculate(inputs.leaderStatorCurrentAmps);
   }

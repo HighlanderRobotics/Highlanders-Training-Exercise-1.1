@@ -22,7 +22,6 @@ import frc.robot.intake.IntakeSubsystem;
 import frc.robot.intake.IntakeSubsystem.IntakeState;
 import frc.robot.swerve.SwerveSubsystem;
 import frc.robot.utils.CommandXboxControllerSubsystem;
-import org.littletonrobotics.junction.AutoLogOutput;
 import org.littletonrobotics.junction.Logger;
 
 public class Superstructure {
@@ -213,7 +212,6 @@ public class Superstructure {
     // }
   }
 
-  @AutoLogOutput(key = "Superstructure/State")
   private static SuperState state = SuperState.IDLE;
 
   private SuperState prevState = SuperState.IDLE;
@@ -229,39 +227,32 @@ public class Superstructure {
   private final CommandXboxControllerSubsystem operator;
 
   // Declare triggers
-  @AutoLogOutput(key = "Superstructure/Pre Score Request")
+
   public Trigger preScoreReq;
 
-  @AutoLogOutput(key = "Superstructure/Score Request")
   public Trigger scoreReq;
 
-  @AutoLogOutput(key = "Superstructure/Coral Intake Request")
   public Trigger intakeCoralReq;
 
-  //   @AutoLogOutput(key = "Superstructure/Algae Intake Request")
+  //
   //   public Trigger intakeAlgaeReq;
 
-  @AutoLogOutput(key = "Superstructure/Pre Climb Request")
   public Trigger preClimbReq;
 
-  @AutoLogOutput(key = "Superstructure/Climb Confirm Request")
   public Trigger climbConfReq;
 
-  @AutoLogOutput(key = "Superstructure/Climb Cancel Request")
   public Trigger climbCancelReq;
 
-  @AutoLogOutput(key = "Superstructure/At Extension?")
   public Trigger atExtensionTrigger = new Trigger(this::atExtension).or(Robot::isSimulation);
 
-  @AutoLogOutput(key = "Superstructure/Intake Has Game Piece?")
   public Trigger intakeHasGamePieceTrigger;
 
   // May need to distinguish between coral and algae
-  @AutoLogOutput(key = "Superstructure/Arm Has Game Piece?")
+
   public Trigger armHasGamePieceTrigger;
 
   // i'm fully aware this is an awful name
-  @AutoLogOutput(key = "Superstructure/Away From Reef?")
+
   public Trigger awayFromReefTrigger;
 
   /** Creates a new Superstructure. */

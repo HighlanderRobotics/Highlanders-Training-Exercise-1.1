@@ -11,14 +11,13 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.canrange.CANrangeIO;
-import frc.robot.canrange.CANrangeIOInputsAutoLogged;
+import frc.robot.canrange.CANrangeIO.CANrangeIOInputs;
 import frc.robot.pivot.PivotIO;
 import frc.robot.roller.RollerIO;
 import frc.robot.rollerpivot.RollerPivotSubsystem;
 import frc.robot.utils.LoggedTunableNumber;
 import java.util.function.DoubleSupplier;
 import java.util.function.Supplier;
-import org.littletonrobotics.junction.AutoLogOutput;
 import org.littletonrobotics.junction.Logger;
 
 public class IntakeSubsystem extends RollerPivotSubsystem {
@@ -44,8 +43,8 @@ public class IntakeSubsystem extends RollerPivotSubsystem {
   public static final double TOLERANCE_DEGREES = 10.0;
   private final CANrangeIO leftCanrangeIO;
   private final CANrangeIO rightCanrangeIO;
-  private final CANrangeIOInputsAutoLogged leftCanrangeInputs = new CANrangeIOInputsAutoLogged();
-  private final CANrangeIOInputsAutoLogged rightCanrangeInputs = new CANrangeIOInputsAutoLogged();
+  private final CANrangeIOInputs leftCanrangeInputs = new CANrangeIOInputs();
+  private final CANrangeIOInputs rightCanrangeInputs = new CANrangeIOInputs();
   private final Rotation2d ZEROING_POSITION = Rotation2d.fromRadians(-0.5);
   public static final double CURRENT_THRESHOLD = 60.0;
 
@@ -98,7 +97,6 @@ public class IntakeSubsystem extends RollerPivotSubsystem {
 
   private boolean hasGamePieceSim = false;
 
-  @AutoLogOutput(key = "Intake/State")
   private IntakeState state = IntakeState.IDLE;
 
   public void setState(IntakeState state) {
@@ -109,9 +107,8 @@ public class IntakeSubsystem extends RollerPivotSubsystem {
   public void periodic() {
     super.periodic();
     leftCanrangeIO.updateInputs(leftCanrangeInputs);
-    Logger.processInputs("Intake/Left CANrange", leftCanrangeInputs);
+
     rightCanrangeIO.updateInputs(rightCanrangeInputs);
-    Logger.processInputs("Intake/Right CANrange", rightCanrangeInputs);
 
     pivotCurrentFilterValue = pivotCurrentFilter.calculate(pivotInputs.statorCurrentAmps);
   }
@@ -124,7 +121,6 @@ public class IntakeSubsystem extends RollerPivotSubsystem {
     return rightCanrangeInputs.distanceMeters;
   }
 
-  @AutoLogOutput(key = "Intake/Has Game Piece")
   public boolean hasGamePiece() {
     // return getleftCanrangeDistanceMeters() < 0.01 || getRightCanrangeDistanceMeters() < 0.01;
     return leftCanrangeInputs.isDetected || rightCanrangeInputs.isDetected;

@@ -10,7 +10,6 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import java.util.function.DoubleSupplier;
 import java.util.function.Supplier;
-import org.littletonrobotics.junction.Logger;
 
 public class LEDSubsystem extends SubsystemBase {
   public static final int LED_LENGTH = 59; // no one knows what this number is lmaoooo
@@ -19,7 +18,7 @@ public class LEDSubsystem extends SubsystemBase {
   public static final Color PURPLE = new Color("#A000D0");
 
   private final LEDIO io;
-  private final LEDIOInputsAutoLogged inputs = new LEDIOInputsAutoLogged();
+  private final LEDIO.LEDIOInputs inputs = new LEDIO.LEDIOInputs();
   private double rainbowStart = 0;
   private double dashStart = 0;
 
@@ -32,7 +31,6 @@ public class LEDSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     io.updateInputs(inputs);
-    Logger.processInputs("LED", inputs);
   }
 
   private void setIndex(int i, Color color) {

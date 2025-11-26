@@ -8,16 +8,16 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Robot;
 import frc.robot.Robot.RobotType;
 import frc.robot.pivot.PivotIO;
-import frc.robot.pivot.PivotIOInputsAutoLogged;
+import frc.robot.pivot.PivotIO.PivotIOInputs;
 import frc.robot.roller.RollerIO;
-import frc.robot.roller.RollerIOInputsAutoLogged;
+import frc.robot.roller.RollerIO.RollerIOInputs;
 import java.util.function.DoubleSupplier;
 import java.util.function.Supplier;
 import org.littletonrobotics.junction.Logger;
 
 public class RollerPivotSubsystem extends SubsystemBase {
-  private final RollerIOInputsAutoLogged rollerInputs = new RollerIOInputsAutoLogged();
-  protected final PivotIOInputsAutoLogged pivotInputs = new PivotIOInputsAutoLogged();
+  private final RollerIOInputs rollerInputs = new RollerIOInputs();
+  protected final PivotIOInputs pivotInputs = new PivotIOInputs();
   protected final RollerIO rollerIO;
   protected final PivotIO pivotIO;
   private final String name;
@@ -99,9 +99,8 @@ public class RollerPivotSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     pivotIO.updateInputs(pivotInputs);
-    Logger.processInputs(name + "/Pivot", pivotInputs);
+
     rollerIO.updateInputs(rollerInputs);
-    Logger.processInputs(name + "/Roller", rollerInputs);
 
     currentFilterValue = currentFilter.calculate(rollerInputs.statorCurrentAmps);
     if (Robot.ROBOT_TYPE != RobotType.REAL)

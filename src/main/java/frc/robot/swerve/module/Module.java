@@ -4,7 +4,6 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import frc.robot.swerve.SwerveSubsystem;
-import org.littletonrobotics.junction.Logger;
 
 // A single module
 public class Module {
@@ -13,7 +12,7 @@ public class Module {
       int id, String prefix, int driveID, int turnID, int cancoderID, Rotation2d cancoderOffset) {}
 
   private final ModuleIO io;
-  private final ModuleIOInputsAutoLogged inputs = new ModuleIOInputsAutoLogged();
+  private final ModuleIO.ModuleIOInputs inputs = new ModuleIO.ModuleIOInputs();
 
   public Module(ModuleIO io) {
     this.io = io;
@@ -23,7 +22,6 @@ public class Module {
   // This class isn't a Subsystem, so periodic() needs to be called in a subsystem periodic to run
   public void periodic() {
     io.updateInputs(inputs);
-    Logger.processInputs("Swerve/" + inputs.prefix + " Module", inputs);
   }
 
   public void stop() {

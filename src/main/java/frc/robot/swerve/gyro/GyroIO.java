@@ -1,11 +1,9 @@
 package frc.robot.swerve.gyro;
 
 import edu.wpi.first.math.geometry.Rotation2d;
-import org.littletonrobotics.junction.AutoLog;
 
 public interface GyroIO {
 
-  @AutoLog
   public static class GyroIOInputs {
     public Rotation2d yaw = new Rotation2d();
     // Could log pitch velocity and roll velocity as well but theres really no use
