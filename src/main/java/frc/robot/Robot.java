@@ -374,10 +374,10 @@ public class Robot extends LoggedRobot {
     Logger.recordMetadata("Codebase", "2025 Offseason");
     Logger.recordMetadata("RuntimeType", getRuntimeType().toString());
     Logger.recordMetadata("Robot Mode", ROBOT_TYPE.toString());
-    Logger.recordMetadata("GitSHA", BuildConstants.GIT_SHA);
-    Logger.recordMetadata("GitDate", BuildConstants.GIT_DATE);
-    Logger.recordMetadata("GitBranch", BuildConstants.GIT_BRANCH);
-    switch (BuildConstants.DIRTY) {
+    Logger.recordMetadata("GitSHA", "test"); //BuildConstants.GIT_SHA);
+    Logger.recordMetadata("GitDate", "test"); //BuildConstants.GIT_DATE);
+    Logger.recordMetadata("GitBranch", "test"); //BuildConstants.GIT_BRANCH);
+    switch (2) { // BuildConstants.DIRTY) {
       case 0:
         Logger.recordMetadata("GitDirty", "All changes committed");
         break;
