@@ -45,7 +45,10 @@ public class RollerPivotSubsystem extends SubsystemBase {
   }
 
   public Command setPivotVoltage(DoubleSupplier volts) {
-    return this.run(() -> pivotIO.setMotorVoltge(volts.getAsDouble()));
+    return this.run(
+        () -> {
+          pivotIO.setMotorVoltage(volts.getAsDouble());
+        });
   }
 
   public Command setPivotAngleAndRollerVoltage(

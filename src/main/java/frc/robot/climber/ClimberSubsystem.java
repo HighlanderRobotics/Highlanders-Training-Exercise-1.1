@@ -65,7 +65,7 @@ public class ClimberSubsystem extends RollerPivotSubsystem {
   public Command setStateAngleVoltage() {
     return this.run(
         () -> {
-          pivotIO.setMotorPosition(state.position)
+          pivotIO.setMotorPosition(state.position);
           Logger.recordOutput("Climber/Pivot Setpoint", state.position);
           rollerIO.setRollerVoltage(state.volts);
         });
